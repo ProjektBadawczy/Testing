@@ -1,0 +1,24 @@
+name: "1. Run Jmeter test plan"
+
+on: workflow_dispatch
+
+jobs:
+  connect_ssh:
+    name: Run Jmeter test plan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the files
+        uses: actions/checkout@v2
+
+      - name: Connect and run jmeter
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          host: ${{ secrets.AWS_DNS }}
+          username: ec2-user
+          port: 22 
+          run: | 
+           docker run --name jmeter -v ./First_tests.jmx:/mnt/jmeter/First_tests.jmx \
+           -v ./../../:/mnt/jmeter justb4/jmeter:latest \
+           -n -t /mnt/jmeter/First_tests.jmx -Jurl=abcdef.com -l /mnt/jmeter/results.csv 

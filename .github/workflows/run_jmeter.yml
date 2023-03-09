@@ -18,7 +18,7 @@ jobs:
           host: ${{ secrets.AWS_TESTING_DNS }}
           username: ec2-user
           port: 22 
-          run: | 
+          script: | 
            docker run --name jmeter -v ./First_tests.jmx:/mnt/jmeter/First_tests.jmx \
            -v ./../../:/mnt/jmeter justb4/jmeter:latest \
            -n -t /mnt/jmeter/First_tests.jmx -Jurl=${{ secrets.AWS_APPLICATION_DNS }} -l /mnt/jmeter/results.csv 

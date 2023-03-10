@@ -19,12 +19,11 @@ jobs:
           REMOTE_USER: ec2-user
           TARGET: /home/ec2-user
 
-      - name: Build and run Dockerfile with Jmeter
+      - name: Run Jmeter
         uses: appleboy/ssh-action@master
         with:
           key: ${{ secrets.SSH_KEY }}
           host: ${{ secrets.AWS_TESTING_DNS }}
           username: ec2-user
           port: 22 
-          script: docker build . &&\ 
-           docker run .
+          script: docker run -v /home/ec2-user/:/mnt/jmeter/ justb4/jmeter:latest -n -t /mnt/jmeter/First_tests.jmx -Jurl=${{ secrets.AWS_APPLICATION_DNS }} -l /mnt/jmeter/results.csv

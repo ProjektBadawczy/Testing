@@ -1,6 +1,17 @@
 name: "1. Run Jmeter test plan"
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      users:
+        description: 'Users'     
+        required: true
+      iterations:
+        description: 'Iterations'     
+        required: true
+      sleep:
+        description: 'Sleep'     
+        required: true
 
 jobs:
   connect_ssh:
@@ -26,4 +37,4 @@ jobs:
           host: ${{ secrets.AWS_TESTING_DNS }}
           username: ec2-user
           port: 22 
-          script: bash run_jmeter_script.sh -u 10 -i 4 -a ${{ secrets.AWS_APPLICATION_DNS }} -s 4
+          script: bash run_jmeter_script.sh -u ${{ github.event.inputs.users }} -i ${{ github.event.inputs.iterations }} -a ${{ secrets.AWS_APPLICATION_DNS }} -s ${{ github.event.inputs.sleep }}

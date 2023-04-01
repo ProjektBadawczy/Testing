@@ -16,7 +16,7 @@ for iteration in `seq 1 $iterations`; do
 	mkdir $iteration
 	
 	for user in `seq 1 $users`; do
-		eval $JMETER_PATH -n -t /mnt/jmeter/Pi2_parametrised.jmx -l log.jtl -Juser=$user -Jiteration=$iteration -Jaddress=$address -o /home/ec2-user/
+		eval $JMETER_PATH -n -t Pi2_parametrised.jmx -l log.jtl -Juser=$user -Jiteration=$iteration -Jaddress=$address
 		sleep $sleep
 	done;
 done;

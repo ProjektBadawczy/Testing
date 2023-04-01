@@ -1,5 +1,7 @@
 #!/bin/bash
 
+JMETER_PATH="apache-jmeter-5.5/bin/jmeter.sh"
+
 while getopts u:i:a:s: flag
 do
     case "${flag}" in

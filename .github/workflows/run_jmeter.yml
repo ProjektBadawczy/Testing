@@ -38,3 +38,5 @@ jobs:
           username: ec2-user
           port: 22 
           script: bash run_jmeter_script.sh -u ${{ github.event.inputs.users }} -i ${{ github.event.inputs.iterations }} -a ${{ secrets.AWS_APPLICATION_DNS }} -s ${{ github.event.inputs.sleep }}
+
+      - name: Copy results to host computer

@@ -78,26 +78,32 @@ label_title <- "Ilość instancji"
 
 df1 <- collectData("D:/Studia- informatyka/II-stopień/semestr 1/Projekt badawczy/Gotowe_dane/Java/mikroserwisy/m4.large-edmonds-karp/")
 df2 <- collectData("D:/Studia- informatyka/II-stopień/semestr 1/Projekt badawczy/Gotowe_dane/Java/mikroserwisy/m4.large-2-instances-edmonds-karp/")
+df20 <- collectData("D:/Studia- informatyka/II-stopień/semestr 1/Projekt badawczy/Gotowe_dane/Java/mikroserwisy/m4.large-4-instances-edmonds-karp/")
 
 df_combined_1 <- rbind(
   transform(df1, Instancja = "1", Technologia = "Java"),
-  transform(df2, Instancja = "2", Technologia = "Java")
+  transform(df2, Instancja = "2", Technologia = "Java"),
+  transform(df20, Instancja = "4", Technologia = "Java")
 )
 
 df3 <- collectData("D:/Studia- informatyka/II-stopień/semestr 1/Projekt badawczy/Gotowe_dane/NET/mikroserwisy/m4.large-edmonds-karp/")
 df4 <- collectData("D:/Studia- informatyka/II-stopień/semestr 1/Projekt badawczy/Gotowe_dane/NET/mikroserwisy/m4.large-2-instances-edmonds-karp/")
+df40 <- collectData("D:/Studia- informatyka/II-stopień/semestr 1/Projekt badawczy/Gotowe_dane/NET/mikroserwisy/m4.large-4-instances-edmonds-karp/")
 
 df_combined_2 <- rbind(
   transform(df3, Instancja = "1", Technologia = "NET"),
-  transform(df4, Instancja = "2", Technologia = "NET")
+  transform(df4, Instancja = "2", Technologia = "NET"),
+  transform(df40, Instancja = "4", Technologia = "NET")
 )
 
 df6 <- collectData("D:/Studia- informatyka/II-stopień/semestr 1/Projekt badawczy/Gotowe_dane/NodeJS/mikroserwisy/m4.large-edmonds-karp/")
 df7 <- collectData("D:/Studia- informatyka/II-stopień/semestr 1/Projekt badawczy/Gotowe_dane/NodeJS/mikroserwisy/m4.large-2-instances-edmonds-karp/")
+df70 <- collectData("D:/Studia- informatyka/II-stopień/semestr 1/Projekt badawczy/Gotowe_dane/NodeJS/mikroserwisy/m4.large-4-instances-edmonds-karp/")
 
 df_combined_3 <- rbind(
   transform(df6, Instancja = "1", Technologia = "NodeJS"),
-  transform(df7, Instancja = "2", Technologia = "NodeJS")
+  transform(df7, Instancja = "2", Technologia = "NodeJS"),
+  transform(df70, Instancja = "4", Technologia = "NodeJS")
 )
 
 df_combined <- rbind(df_combined_1, df_combined_2, df_combined_3)
@@ -121,10 +127,10 @@ ggplot(df_combined, aes(x = Users, y = Throughput, color = Instancja, fill = Ins
   geom_text(data = df_combined %>% group_by(Instancja, Technologia) %>% filter(Throughput == max(Throughput)) %>% slice(1),
             aes(x = Users, y = Throughput, label = round(Throughput, 1.2), vjust = -0.6), show.legend = FALSE, check_overlap = TRUE) +
   scale_shape_manual(values = c(21, 22, 24)) +
-  scale_color_manual(values = c("#0D4F91", "#1E6721")) +
-  scale_fill_manual(values =  c("#0D4F91", "#1E6721")) +
+  scale_color_manual(values = c("#0D4F91", "#1E6721", "#821818")) +
+  scale_fill_manual(values =  c("#0D4F91", "#1E6721", "#821818")) +
   labs(x = "Liczba równoległych userów", y = "Przepustowość [zap. na sekundę]", color = label_title, shape = label_title, fill = label_title) +
   theme(legend.position = "bottom") +
   facet_wrap(~factor(Technologia, c("Java", "NET", "NodeJS")), ncol = 1, scales = "free_y", strip.position = "top") +
-  scale_y_continuous(limits = c(0, 400))
+  scale_y_continuous(limits = c(0, 500))
 

@@ -74,7 +74,7 @@ max_response_time <- 200  # [ms]
 #######################################
 #            COLLECT DATA             #
 #######################################
-label_title <- "Ilość instancji"
+label_title <- "Liczba instancji"
 
 df1 <- collectData("D:/Studia- informatyka/II-stopień/semestr 1/Projekt badawczy/Gotowe_dane/Java/mikroserwisy/m4.large-edmonds-karp/")
 df2 <- collectData("D:/Studia- informatyka/II-stopień/semestr 1/Projekt badawczy/Gotowe_dane/Java/mikroserwisy/m4.large-2-instances-edmonds-karp/")
@@ -127,10 +127,10 @@ ggplot(df_combined, aes(x = Users, y = Throughput, color = Instancja, fill = Ins
   geom_text(data = df_combined %>% group_by(Instancja, Technologia) %>% filter(Throughput == max(Throughput)) %>% slice(1),
             aes(x = Users, y = Throughput, label = round(Throughput, 1.2), vjust = -0.6), show.legend = FALSE, check_overlap = TRUE) +
   scale_shape_manual(values = c(21, 22, 24)) +
-  scale_color_manual(values = c("#0D4F91", "#1E6721", "#821818")) +
-  scale_fill_manual(values =  c("#0D4F91", "#1E6721", "#821818")) +
-  labs(x = "Liczba równoległych userów", y = "Przepustowość [zap. na sekundę]", color = label_title, shape = label_title, fill = label_title) +
+  scale_color_manual(values = c("#0DBBF7", "#FF5B33", "#D426FF")) +
+  scale_fill_manual(values =  c("#0DBBF7",  "#FF5B33","#D426FF")) +
+  labs(x = "Liczba równoległych użytkowników", y = "Przepustowość [liczb. zap. na sekundę]", color = label_title, shape = label_title, fill = label_title) +
   theme(legend.position = "bottom") +
   facet_wrap(~factor(Technologia, c("Java", "NET", "NodeJS")), ncol = 1, scales = "free_y", strip.position = "top") +
-  scale_y_continuous(limits = c(0, 500))
+  scale_y_continuous(limits = c(0, 700))
 

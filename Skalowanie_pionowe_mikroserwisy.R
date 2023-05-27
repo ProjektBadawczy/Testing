@@ -123,21 +123,14 @@ max_y <- df_combined %>%
 geom_text_data <- df_combined %>% group_by(Architektura, Technologia, Instancja) %>% filter(Throughput == max(Throughput)) %>% slice(1)
 
 ggplot(df_combined, aes(x = Users, y = Throughput, color = Instancja)) +
-  # ggplot(df_combined, aes(x = Users, y = Throughput, color = Instancja)) +
   geom_point() + 
   geom_line() +
   geom_hline(data = max_y, linetype = "dashed", color = "gray", aes(yintercept = max_y)) +
+  scale_color_manual(values = c( "#D426FF", "#FF5B33", "#0DBBF7"), limits=c("m4.2xlarge", "m4.xlarge", "m4.large")) +
   geom_text(data = geom_text_data,
             aes(x = Users, y = Throughput, label = round(Throughput, 1.2), vjust = -0.8), show.legend = FALSE, check_overlap = TRUE) +
-  labs(x = "Liczba równoległych userów", y = "Przepustowość [zap. na sekundę]", color = label_title) +
+  labs(x = "Liczba równoległych użytkowników", y = "Przepustowość [liczb. zap. na sekundę]", color = label_title) +
   facet_grid(factor(Technologia, c("Java", "NET", "NodeJS")) ~ Architektura) +
-  # facet_wrap(~Architektura) +
-  scale_color_discrete(limits=c("m4.large", "m4.xlarge", "m4.2xlarge")) #+
-scale_y_continuous(limits = c(0, 6000)) #+
-scale_y_log10(limits = c(4, 250)) 
-# scale_y_continuous(trans = "log", limits = c(2, 260)) +
-# scale_x_continuous(limits = c(1, 10)) +
-# theme(legend.position = "bottom")
-# coord_cartesian(ylim = c(220, 261))
+  scale_y_continuous(limits = c(0, 950))
 
 

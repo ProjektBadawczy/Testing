@@ -122,7 +122,7 @@ max_throughput <- df_combined %>%
 #######################################
 #                 PLOT                #
 #######################################
-ggplot(df_combined, aes(x = Users, y = Throughput, color = Instancja, shape = Instancja, fill = Instancja)) +
+comb <- ggplot(df_combined, aes(x = Users, y = Throughput, color = Instancja, shape = Instancja, fill = Instancja)) +
   geom_point(size = 2) + 
   geom_line() +
   geom_hline(data = max_throughput, linetype = "dashed", color = "gray", aes(yintercept = Throughput)) +
@@ -131,7 +131,7 @@ ggplot(df_combined, aes(x = Users, y = Throughput, color = Instancja, shape = In
   scale_shape_manual(values = c(22, 22, 21, 21, 25, 25)) +
   scale_color_manual(values = c("#0D4F91", "#1F77B4", "#821818", "#D62728", "#1E6721", "#2CA02C")) +
   scale_fill_manual(values =  c("#0D4F91", "white",   "#821818", "white",   "#1E6721", "white")) +
-  labs(x = "Liczba równoległych userów", y = "Przepustowość [zap. na sekundę]", color = label_title, shape = label_title, fill = label_title) +
+  labs(x = "Liczba równoległych użytkowników", y = "Przepustowość [liczb. zap. na sekundę]", color = label_title, shape = label_title, fill = label_title) +
   theme(legend.position = "bottom") +
   facet_grid(.~Grupa)
 
@@ -146,9 +146,9 @@ ggplot(df_combined_1, aes(x = Users, y = Throughput, color = Instancja, shape = 
   geom_text(data = geom_text_data,
             aes(x = Users, y = Throughput, label = round(Throughput, 1.2), vjust = -1), show.legend = FALSE, check_overlap = TRUE) +
   scale_shape_manual(values = c(22, 22, 21, 21, 25, 25)) +
-  scale_color_manual(values = c("#0D4F91", "#1F77B4", "#821818", "#D62728", "#1E6721", "#2CA02C")) +
-  scale_fill_manual(values =  c("#0D4F91", "white",   "#821818", "white",   "#1E6721", "white")) +
-  labs(x = "Liczba równoległych userów", y = "Przepustowość [zap. na sekundę]", color = label_title, shape = label_title, fill = label_title)
+  scale_color_manual(values = c("#0DBBF7", "#81DCFB", "#FF5B33", "#FF7D5D", "#D426FF", "#E68FFB")) +
+  scale_fill_manual(values =  c("#0DBBF7", "white",   "#FF5B33", "white",   "#D426FF", "white")) +
+  labs(x = "Liczba równoległych użytkowników", y = "Przepustowość [liczb. zap. na sekundę]", color = label_title, shape = label_title, fill = label_title)
 
 
 geom_text_data <- df_combined_2 %>% group_by(Instancja, Grupa) %>% filter(Throughput == max(Throughput)) %>% slice(1)
@@ -161,8 +161,6 @@ ggplot(df_combined_2, aes(x = Users, y = Throughput, color = Instancja, shape = 
   geom_text(data = geom_text_data,
             aes(x = Users, y = Throughput, label = round(Throughput, 1.2), vjust = -1), show.legend = FALSE, check_overlap = TRUE) +
   scale_shape_manual(values = c(22, 22, 21, 21, 25, 25)) +
-  scale_color_manual(values = c("#0D4F91", "#1F77B4", "#821818", "#D62728", "#1E6721", "#2CA02C")) +
-  scale_fill_manual(values =  c("#0D4F91", "white",   "#821818", "white",   "#1E6721", "white")) +
-  labs(x = "Liczba równoległych userów", y = "Przepustowość [zap. na sekundę]", color = label_title, shape = label_title, fill = label_title)
-
-
+  scale_color_manual(values = c("#0DBBF7", "#81DCFB", "#FF5B33", "#FF7D5D", "#D426FF", "#E68FFB")) +
+  scale_fill_manual(values =  c("#0DBBF7", "white",   "#FF5B33", "white",   "#D426FF", "white")) +
+  labs(x = "Liczba równoległych użytkowników", y = "Przepustowość [liczb. zap. na sekundę]", color = label_title, shape = label_title, fill = label_title)

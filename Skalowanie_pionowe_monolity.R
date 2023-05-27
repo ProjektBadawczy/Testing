@@ -82,9 +82,9 @@ df2 <- collectData("D:/Studia- informatyka/II-stopień/semestr 1/Projekt badawcz
 df21 <- collectData("D:/Studia- informatyka/II-stopień/semestr 1/Projekt badawczy/Gotowe_dane/Java/monolit/m4.2xlarge-edmonds-karp/")
 
 df_combined_1 <- rbind(
-  transform(df1, Technologia = "Java", Architektura = "Monolit", Instancja = "m4.large"),
-  transform(df2, Technologia = "Java", Architektura = "Monolit", Instancja = "m4.xlarge"),
-  transform(df21, Technologia = "Java", Architektura = "Monolit", Instancja = "m4.2xlarge")
+  transform(df1, Technologia = "Java", Architektura = "Aplikacja monolityczna", Instancja = "m4.large"),
+  transform(df2, Technologia = "Java", Architektura = "Aplikacja monolityczna", Instancja = "m4.xlarge"),
+  transform(df21, Technologia = "Java", Architektura = "Aplikacja monolityczna", Instancja = "m4.2xlarge")
 )
 
 
@@ -93,9 +93,9 @@ df6 <- collectData("D:/Studia- informatyka/II-stopień/semestr 1/Projekt badawcz
 df7 <- collectData("D:/Studia- informatyka/II-stopień/semestr 1/Projekt badawczy/Gotowe_dane/NET/monolit/m4.2xlarge-edmonds-karp/")
 
 df_combined_3 <- rbind(
-  transform(df5, Technologia = "NET", Architektura = "Monolit", Instancja = "m4.large"),
-  transform(df6, Technologia = "NET", Architektura = "Monolit", Instancja = "m4.xlarge"),
-  transform(df7, Technologia = "NET", Architektura = "Monolit", Instancja = "m4.2xlarge")
+  transform(df5, Technologia = "NET", Architektura = "Aplikacja monolityczna", Instancja = "m4.large"),
+  transform(df6, Technologia = "NET", Architektura = "Aplikacja monolityczna", Instancja = "m4.xlarge"),
+  transform(df7, Technologia = "NET", Architektura = "Aplikacja monolityczna", Instancja = "m4.2xlarge")
 )
 
 
@@ -104,14 +104,13 @@ df12 <-  collectData("D:/Studia- informatyka/II-stopień/semestr 1/Projekt badaw
 df13 <-  collectData("D:/Studia- informatyka/II-stopień/semestr 1/Projekt badawczy/Gotowe_dane/NodeJS/monolit/m4.2xlarge-edmonds-karp/")
 
 df_combined_5 <- rbind(
-  transform(df11, Technologia = "NodeJS", Architektura = "Monolit", Instancja = "m4.large"),
-  transform(df12, Technologia = "NodeJS", Architektura = "Monolit", Instancja = "m4.xlarge"),
-  transform(df13, Technologia = "NodeJS", Architektura = "Monolit", Instancja = "m4.2xlarge")
+  transform(df11, Technologia = "NodeJS", Architektura = "Aplikacja monolityczna", Instancja = "m4.large"),
+  transform(df12, Technologia = "NodeJS", Architektura = "Aplikacja monolityczna", Instancja = "m4.xlarge"),
+  transform(df13, Technologia = "NodeJS", Architektura = "Aplikacja monolityczna", Instancja = "m4.2xlarge")
 )
 
 
 df_combined <- rbind(df_combined_1, df_combined_3, df_combined_5)
-
 
 #######################################
 #                 PLOT                #
@@ -133,6 +132,7 @@ ggplot(df_combined, aes(x = Users, y = Throughput, color = Instancja)) +
             aes(x = Users, y = Throughput, label = round(Throughput, 1.2), vjust = -0.8), show.legend = FALSE, check_overlap = TRUE) +
   labs(x = "Liczba równoległych użytkowników", y = "Przepustowość [liczb. zap. na sekundę]", color = label_title) +
   facet_grid(factor(Technologia, c("Java", "NET", "NodeJS")) ~ Architektura) +
-  scale_y_continuous(limits = c(0, 11000))
+  #scale_y_continuous(limits = c(0, 11000))
+  scale_y_log10(limits = c(550, 750))
 
 

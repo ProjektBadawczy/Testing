@@ -83,9 +83,9 @@ df9 <-  collectData("D:/Studia- informatyka/II-stopień/semestr 1/Projekt badawc
 df19 <-  collectData("D:/Studia- informatyka/II-stopień/semestr 1/Projekt badawczy/Gotowe_dane/Java/mikroserwisy/m4.2xlarge-edmonds-karp/")
 
 df_combined_2 <- rbind(
-  transform(df3, Technologia = "Java", Architektura = "Mikroserwisy", Instancja = "m4.large"),
-  transform(df9, Technologia = "Java", Architektura = "Mikroserwisy", Instancja = "m4.xlarge"),
-  transform(df19, Technologia = "Java", Architektura = "Mikroserwisy", Instancja = "m4.2xlarge")
+  transform(df3, Technologia = "Java", Architektura = "Aplikacja mikroserwisowa", Instancja = "m4.large"),
+  transform(df9, Technologia = "Java", Architektura = "Aplikacja mikroserwisowa", Instancja = "m4.xlarge"),
+  transform(df19, Technologia = "Java", Architektura = "Aplikacja mikroserwisowa", Instancja = "m4.2xlarge")
 )
 
 df10 <-  collectData("D:/Studia- informatyka/II-stopień/semestr 1/Projekt badawczy/Gotowe_dane/NET/mikroserwisy/m4.large-edmonds-karp/")
@@ -93,9 +93,9 @@ df20 <-  collectData("D:/Studia- informatyka/II-stopień/semestr 1/Projekt badaw
 df21 <-  collectData("D:/Studia- informatyka/II-stopień/semestr 1/Projekt badawczy/Gotowe_dane/NET/mikroserwisy/m4.2xlarge-edmonds-karp/")
 
 df_combined_4 <- rbind(
-  transform(df10, Technologia = "NET", Architektura = "Mikroserwisy", Instancja = "m4.large"),
-  transform(df20, Technologia = "NET", Architektura = "Mikroserwisy", Instancja = "m4.xlarge"),
-  transform(df21, Technologia = "NET", Architektura = "Mikroserwisy", Instancja = "m4.2xlarge")
+  transform(df10, Technologia = "NET", Architektura = "Aplikacja mikroserwisowa", Instancja = "m4.large"),
+  transform(df20, Technologia = "NET", Architektura = "Aplikacja mikroserwisowa", Instancja = "m4.xlarge"),
+  transform(df21, Technologia = "NET", Architektura = "Aplikacja mikroserwisowa", Instancja = "m4.2xlarge")
 )
 
 
@@ -104,9 +104,9 @@ df17 <-  collectData("D:/Studia- informatyka/II-stopień/semestr 1/Projekt badaw
 df18 <-  collectData("D:/Studia- informatyka/II-stopień/semestr 1/Projekt badawczy/Gotowe_dane/NodeJS/mikroserwisy/m4.2xlarge-edmonds-karp/")
 
 df_combined_6 <- rbind(
-  transform(df16, Technologia = "NodeJS", Architektura = "Mikroserwisy", Instancja = "m4.large"),
-  transform(df17, Technologia = "NodeJS", Architektura = "Mikroserwisy", Instancja = "m4.xlarge"),
-  transform(df18, Technologia = "NodeJS", Architektura = "Mikroserwisy", Instancja = "m4.2xlarge")
+  transform(df16, Technologia = "NodeJS", Architektura = "Aplikacja mikroserwisowa", Instancja = "m4.large"),
+  transform(df17, Technologia = "NodeJS", Architektura = "Aplikacja mikroserwisowa", Instancja = "m4.xlarge"),
+  transform(df18, Technologia = "NodeJS", Architektura = "Aplikacja mikroserwisowa", Instancja = "m4.2xlarge")
 )
 
 df_combined <- rbind(df_combined_2, df_combined_4, df_combined_6)
@@ -131,6 +131,8 @@ ggplot(df_combined, aes(x = Users, y = Throughput, color = Instancja)) +
             aes(x = Users, y = Throughput, label = round(Throughput, 1.2), vjust = -0.8), show.legend = FALSE, check_overlap = TRUE) +
   labs(x = "Liczba równoległych użytkowników", y = "Przepustowość [liczb. zap. na sekundę]", color = label_title) +
   facet_grid(factor(Technologia, c("Java", "NET", "NodeJS")) ~ Architektura) +
-  scale_y_continuous(limits = c(0, 950))
+  #scale_y_continuous(limits = c(0, 1000))
+  scale_y_log10(limits = c(50, 150))
+
 
 

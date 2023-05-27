@@ -47,7 +47,7 @@ delta <- 7
 total_time <- 5 
 
 #W tym katalogu musza byc podkatalogi z iteracjami wygenerowane przez run_Jmeter.bat
-baseDir <- "D:/Studia- informatyka/II-stopień/semestr 1/Projekt badawczy/Testing"
+baseDir <- "D:/Studia- informatyka/II-stopień/semestr 1/Projekt badawczy/ec2-user/"
 
 columns = c("Iteration","Users","Throughput","Median_latency", "Q90_latency", "Error_rates") 
 statsDF = data.frame(matrix(nrow = 0, ncol = length(columns))) 
@@ -78,5 +78,20 @@ ggplot(statsDF, aes(x=Users, y=Throughput)) + geom_point() + facet_wrap(~Iterati
 
 df <- aggregate(cbind(Throughput, Median_latency, Q90_latency, Error_rates) ~ Users, statsDF, FUN = median)
 
-ggplot(df, aes(x=Users, y=Throughput)) + geom_point()
+max_throughput <- df %>%
+  filter(Throughput == max(Throughput)) %>%
+  slice(1)
 
+ggplot(df, aes(x=Users, y=Throughput)) + geom_point() +
+geom_point(size = 2) + 
+  geom_line() +
+  geom_hline(data = max_throughput, linetype = "dashed", color = "gray", aes(yintercept = Throughput)) +
+  geom_text(data = df %>% filter(Throughput == max(Throughput)) %>% slice(1),
+            aes(x = Users, y = Throughput, label = round(Throughput, 1.2), vjust = -0.6), show.legend = FALSE, check_overlap = TRUE) +
+  scale_shape_manual(values = c(21, 22, 24)) +
+  labs(x = "Liczba równoległych userów", y = "Przepustowość [zap. na sekundę]", color = label_title, shape = label_title, fill = label_title) +
+  theme(legend.position = "bottom")
+  scale_y_continuous(limits = c(0, 35))
+
+
+  
